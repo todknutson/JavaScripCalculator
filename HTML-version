@@ -1,0 +1,225 @@
+<html>
+<head>
+    <title>Calculator - by Tod Knutson</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <style>
+        * {
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+        }
+        
+        input {
+            background-color: #DCDCDC;
+        }
+        
+        input.btn {
+            width: 100%;
+        }
+        
+        #txtMem, #txtCal {
+            background-color: #F5F5F5;
+        }
+        #lyrCal {
+            position:absolute; 
+            width:350px; 
+            height:225px; 
+            z-index:1; 
+            left: 10px; 
+            top: 10px; 
+            border:1px solid #cccccc; 
+            background-color:#ffffff;
+        }
+    </style>
+</head>
+
+<body bgcolor="#f5f5f5">
+    <script language="JavaScript">
+        <!--
+        var num1, num2, result;
+        var operator = "";
+        var operandSet = false;
+        var memAvail = false;
+        function clr(item){
+
+            if (item == "back"){
+                currentValue = document.frmCal.txtCal.value;
+                currentLength = currentValue.length;
+                currentValue = currentValue.substring(0,currentLength-1);
+                document.frmCal.txtCal.value = currentValue;
+            }
+
+            if (item == "entry"){
+                document.frmCal.txtCal.value = "";
+            }
+
+            if (item == "all"){
+                document.frmCal.txtCal.value = "";
+                num1 = 0;
+                num2 =0;
+                result = 0;
+                operator = "";
+                operandSet = false;
+            }
+        }
+
+        function input(numIn){
+            document.frmCal.txtCal.value = document.frmCal.txtCal.value + numIn;
+        }
+
+        function setOperand(op){
+            num1 = document.frmCal.txtCal.value;
+            switch (op){
+                case "+":
+                    operator = "+";
+                    clr("entry");
+                    break;
+                case "*":
+                    operator = "*";
+                    clr("entry");
+                    break;
+                case "-":
+                    operator = "-";
+                    clr("entry");
+                    break;
+                case "/":
+                    operator = "/";
+                    clr("entry");
+                    break;
+                case "sq":
+                    num1 = Math.sqrt(num1);
+                    document.frmCal.txtCal.value = num1;
+                    break;
+                case "%":
+                    num1 = num1 / 100;
+                    document.frmCal.txtCal.value = num1;
+                    break;
+                case "rand":
+                    num1 = Math.round(Math.random() * 100);
+                    document.frmCal.txtCal.value = num1;
+                    break;
+                default:
+                    document.frmCal.txtCal.value = "Error has occurred!";
+            }
+            operandSet = true;
+        }
+
+        function getResult(){
+            if (operandSet == true){
+                num2 = document.frmCal.txtCal.value;
+                switch (operator){
+                    case "+":
+                        result = parseFloat(num1) + parseFloat(num2); break;
+                    case "*":
+                        result = num1 * num2; break;
+                    case "-":
+                        result = num1 - num2; break;
+                    case "/":
+                        result = num1 / num2; break;
+                    default:
+                        document.frmCal.txtCal.value = "Error has occurred!";
+                }
+                clr("entry");
+                if (result == "NaN") result = 0;
+                document.frmCal.txtCal.value = result;
+                operandSet = false;
+            } else {
+                num1 = document.frmCal.txtCal.value;
+                if (num1 == "")
+                    operandSet = false;
+                else
+                    operandSet = true;
+            }
+        }
+
+        function memOp(oper){
+            switch (oper){
+                case "save":
+                    memAvail = true;
+                    document.frmCal.txtMem.value = document.frmCal.txtCal.value;
+                    clr("entry");
+                    break;
+                case "recall":
+                    if (memAvail == true)
+                        document.frmCal.txtCal.value = document.frmCal.txtMem.value;
+                    break;
+                case "clear":
+                    document.frmCal.txtMem.value = "";
+                    memAvail = false;
+                    break;
+                case "add":
+                    num1 = document.frmCal.txtCal.value;
+                    num2 = document.frmCal.txtMem.value;
+                    if (num1 != "" && num2 != ""){
+                        clr("entry");
+                        document.frmCal.txtCal.value = parseFloat(num1) + parseFloat(num2);
+                    }
+                    break;
+            }
+        }
+
+        function addDeci(){
+            document.frmCal.txtCal.value = document.frmCal.txtCal.value + ".";
+        }
+
+        function posNeg(){
+            var num = parseFloat(document.frmCal.txtCal.value);
+            document.frmCal.txtCal.value = (num*-1);
+        }
+        // -->
+    </script>
+
+    <div id="lyrCal">
+        <form name="frmCal">
+            <input type="text" id="txtCal" size="30" readonly style="position:absolute; left: 100px; top: 15px; text-align: right;">
+            <input type="button" name="btnBack" value="Back" title="Backspace" onclick="clr('back');" style="position:absolute; width: 70px; left: 95px; top: 50px;">
+            <input type="button" name="btnCE" value="CE" title="Clear entry" onclick="clr('entry');" style="position:absolute; width: 70px; left: 175px; top: 50px;">
+            <input type="button" name="btnClear" value="Clear" title="Clear all" onclick="clr('all');" style="position:absolute; width: 70px; left: 255px; top: 50px;">
+            
+            <table width="100%" border="0" cellspacing="5" cellpadding="0" style="position:absolute; width:240px; height:120px; z-index:2; left:90px; top:85px; border:1px solid #cccccc; background-color:#f5f5f5;">
+                <tr>
+                    <td width="20%"><input type="button" name="btn7" value="7" onclick="input(7);" class="btn"></td>
+                    <td width="20%"><input type="button" name="btn8" value="8" onclick="input(8);" class="btn"></td>
+                    <td width="20%"><input type="button" name="btn9" value="9" onclick="input(9);" class="btn"></td>
+                    <td width="20%"><input type="button" name="btnDiv" value="/" onclick="setOperand('/');" class="btn"></td>
+                    <td width="20%" title="Square Root">
+                        <input type="button" name="btnSqrt" value="sqrt" onclick="setOperand('sq');" class="btn">
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="button" name="btn4" value="4" onclick="input(4);" class="btn"></td>
+                    <td><input type="button" name="btn5" value="5" onclick="input(5);" class="btn"></td>
+                    <td><input type="button" name="btn6" value="6" onclick="input(6);" class="btn"></td>
+                    <td><input type="button" name="btnMult" value="*" onclick="setOperand('*');" class="btn"></td>
+                    <td><input type="button" name="btnPerc" value="%" onclick="setOperand('%');" class="btn"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" name="btn1" value="1" onclick="input(1);" class="btn"></td>
+                    <td><input type="button" name="btn2" value="2" onclick="input(2);" class="btn"></td>
+                    <td><input type="button" name="btn3" value="3" onclick="input(3);" class="btn"></td>
+                    <td><input type="button" name="btnSubt" value="-" onclick="setOperand('-');" class="btn"></td>
+                    <td title="Random Integer"><input type="button" name="btnRand" value="rnd" onclick="setOperand('rand');" class="btn"></td>
+                </tr>
+                <tr>
+                    <td><input type="button" name="btn0" value="0" onclick="input(0);" class="btn"></td>
+                    <td><input type="button" name="btnPN" value="+/-" onclick="posNeg();" class="btn"></td>
+                    <td><input type="button" name="btnDec" value="." onclick="addDeci();" class="btn"></td>
+                    <td><input type="button" name="btnAdd" value="+" onclick="setOperand('+');" class="btn"></td>
+                    <td><input type="button" name="btnEqu" value="=" onclick="getResult();" class="btn"></td>
+                </tr>
+            </table>
+
+            <input type="text" id="txtMem" size="6" readonly style="position:absolute; left: 15px; top: 60px; text-align: right;">
+            <input type="button" name="btnMemC" value="MemC" title="Clear memory" onclick="memOp('clear');" style="position:absolute; width:60px; left: 15px; top: 90px;">
+            <input type="button" name="btnMemR" value="MemR" title="Recall memory" onclick="memOp('recall');" style="position:absolute; width:60px; left: 15px; top: 120px;">
+            <input type="button" name="btnMemS" value="MemS" title="Save to memory" onclick="memOp('save');" style="position:absolute; width:60px; left: 15px; top: 150px;">
+            <input type="button" name="btnMemP" value="Mem+" title="Add the memory" onclick="memOp('add');" style="position:absolute; width:60px; left: 15px; top: 180px;">
+        </form>
+    </div>
+
+    <span style="position:absolute; width:100px; height:15px; z-index:1; left:265px; top:242px;">
+        <a href="javascript:window.close()" style="text-decoration:none; color:#999999;">close window</a> 
+    </span>
+
+</body>
+
+</html>
